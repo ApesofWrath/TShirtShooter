@@ -6,7 +6,7 @@
  */
 #include "DriveController.h"
 
-#define PI 3.14159
+#define PI 3.14159265
 
 const int CAN_TALON_FRONT_LEFT = 0;
 const int CAN_TALON_BACK_LEFT = 0;
@@ -24,7 +24,7 @@ const double MINUTE_CONVERSION = 600.0; //100 ms to min
 double output_l = 0.0;
 double output_r = 0.0;
 
-double Kf_d = 1.0 / MAX_Y_RPM_ACTUAL; //scale down targets //drive gains
+double Kf_d = 1.0; //1.0 / MAX_Y_RPM_ACTUAL; //scale down targets
 double Kp_d = 0.0;
 double Ki_d = 0.0;
 double Kd_d = 0.0;

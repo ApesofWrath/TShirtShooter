@@ -8,7 +8,7 @@
 #include "TeleopStateMachine.h"
 #define PI 3.14159
 
-const int PRESSURE_THRESHOLD = 0;
+const int PRESSURE_THRESHOLD = 10; //check this value
 const int FIRING_TIME = 2; //seconds
 
 const int INIT_STATE = 0;
