@@ -118,3 +118,7 @@ void TeleopStateMachine::StateMachine(bool shoot, bool sixty, bool seventy, bool
 	}
 
 }
+
+void TeleopStateMachine::Initialize() {
+	state = INIT_STATE;
+}

@@ -6,7 +6,7 @@
  */
 
 #include <Firing.h>
-
+//Change to Solenoid
 const int CLOSE_STATE = 0;
 const int FIRE_STATE = 1;
 int barrel_fire_state = CLOSE_STATE;

@@ -17,6 +17,7 @@ public:
 
 	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP);
 	void StateMachine(bool shoot, bool sixty, bool seventy, bool eighty);
+	void Initialize();
 
 };
 

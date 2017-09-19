@@ -15,10 +15,12 @@
 
 class Robot: public frc::IterativeRobot {
 
-	const int SHOOT_BUTTON = 0;
-	const int SIXTY_BUTTON = 0;
-	const int SEVENTY_BUTTON = 0;
-	const int EIGHTY_BUTTON = 0;
+	const int SHOOT_BUTTON = 1;
+	const int SIXTY_BUTTON = 6;
+	const int SEVENTY_BUTTON = 7;
+	const int EIGHTY_BUTTON = 8;
+
+	const int JOY_OP = 0;
 
 	Firing *firing_;
 	Joystick *joyOp;
@@ -27,19 +29,26 @@ class Robot: public frc::IterativeRobot {
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
 
+	Solenoid *solenoid_1, *solenoid_2;
+
+
 	void RobotInit() {
 
-		joyOp = new Joystick(0);
+		joyOp = new Joystick(JOY_OP);
 		tank_ = new Tank();
 		barrel_ = new Barrel();
 		firing_ = new Firing();
 		drive_controller = new DriveController();
 		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_);
 
+		solenoid_1 = new Solenoid(0, 0);
+		solenoid_2 = new Solenoid(0, 1);
+
 	}
 
 	void TeleopInit() {
 
+		teleop_state_machine->Initialize();
 	}
 
 	void TeleopPeriodic() {
@@ -54,6 +63,24 @@ class Robot: public frc::IterativeRobot {
 		barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
 		drive_controller->Drive();
+
+	}
+
+	void TestPeriodic() {
+
+		if(joyOp->GetRawButton(1)) {
+			solenoid_1->Set(true);
+		}
+		else {
+			solenoid_1->Set(false);
+		}
+
+		if(joyOp->GetRawButton(2)) {
+				solenoid_2->Set(true);
+			}
+			else {
+				solenoid_2->Set(false);
+			}
 
 	}
 
