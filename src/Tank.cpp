@@ -14,20 +14,21 @@ int tank_state = CLOSE_STATE;
 
 Tank::Tank() {
 
-	inputValve = new DoubleSolenoid(0, 0, 0);
+	inputValve = new Solenoid(4, 0);
+	emergencyRelease = new Solenoid(4, 0);
 	pressureSensor = new AnalogInput(0);
 
 }
 
 void Tank::Open() {
 
-	inputValve->Set(DoubleSolenoid::Value::kForward);
+	inputValve->Set(true);
 
 }
 
 void Tank::Close() {
 
-	inputValve->Set(DoubleSolenoid::Value::kReverse);
+	inputValve->Set(false);
 
 }
 

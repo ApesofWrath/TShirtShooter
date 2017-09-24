@@ -15,11 +15,10 @@ public:
 
 	CANTalon *canTalonFrontLeft, *canTalonFrontRight, *canTalonBackLeft,
 				*canTalonBackRight;
-	Joystick *joyThrottle, *joyWheel;
 	AHRS *ahrs;
 
 	DriveController();
-	void Drive();
+	void Drive(Joystick *joyThrottle, Joystick *joyWheel);
 
 };
 

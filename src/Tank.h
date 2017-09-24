@@ -13,7 +13,7 @@
 class Tank {
 public:
 
-	DoubleSolenoid *inputValve;
+	Solenoid *inputValve, *emergencyRelease;
 	AnalogInput *pressureSensor;
 	Tank();
 	void Open();

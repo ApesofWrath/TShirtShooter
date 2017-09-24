@@ -16,7 +16,7 @@ public:
 	void Close();
 	void Fire();
 
-	DoubleSolenoid *outputValve;
+	Solenoid *outputValve;
 
 	const int CLOSE_STATE_H = 0;
 	const int FIRE_STATE_H = 1;

@@ -6,26 +6,26 @@
  */
 
 #include <Firing.h>
-//Change to Solenoid
+
 const int CLOSE_STATE = 0;
 const int FIRE_STATE = 1;
 int barrel_fire_state = CLOSE_STATE;
 
 Firing::Firing() {
 
-	outputValve = new DoubleSolenoid(0, 0, 0);
+	outputValve = new Solenoid(4, 2);
 
 }
 
 void Firing::Close() {
 
-	outputValve->Set(DoubleSolenoid::Value::kReverse);
+	outputValve->Set(false);
 
 }
 
 void Firing::Fire() {
 
-	outputValve->Set(DoubleSolenoid::Value::kForward);
+	outputValve->Set(true);
 
 }
 

@@ -15,8 +15,12 @@
 class TeleopStateMachine {
 public:
 
+	Barrel * barrel_;
+	Tank * tank_;
+	Firing * firing_;
+
 	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP);
-	void StateMachine(bool shoot, bool sixty, bool seventy, bool eighty);
+	void StateMachine(bool shoot, bool up);
 	void Initialize();
 
 };
