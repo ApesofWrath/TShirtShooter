@@ -53,14 +53,6 @@ double last_error = 0.0;
 
 std::thread BarrelThread;
 
-//TrapezoidalProfile *intake_profiler = new TrapezoidalProfile(MAX_VELOCITY,
-	//	MAX_ACCELERATION, TIME_STEP);
-
-//std::vector<std::vector<double>> down_to_up_profile =
-//		intake_profiler->CreateProfile(DOWN_ANGLE,UP_ANGLE);
-//std::vector<std::vector<double>> up_to_down_profile =
-//		intake_profiler->CreateProfile(UP_ANGLE, DOWN_ANGLE);
-
 const int DOWN_TO_UP_ANGLE = 0;
 const int UP_TO_DOWN_ANGLE = 1;
 
@@ -136,29 +128,27 @@ double Barrel::GetBarrelPos() {
 
 void Barrel::BarrelStateMachine() {
 
-//	switch(barrel_pos_state) {
-//
-//	case ZERO_STATE:
-//		canTalonBarrel->SetEncPosition(0);
-//		break;
-//
-//	case DOWN_STATE:
-//		MoveTo(DOWN_ANGLE);
-//	//	canTalonBarrel->Set(-SPIN_SPEED);
-//		IsAtPosition(DOWN_ANGLE);
-//		break;
-//
-//	case UP_STATE:
-//		MoveTo(UP_ANGLE);
-//	//	canTalonBarrel->Set(SPIN_SPEED);
-//		IsAtPosition(UP_ANGLE);
-//		break;
-//
-//	case STOP_STATE:
-//		canTalonBarrel->Set(0);
-//		break;
-//
-//	}
+	switch(barrel_pos_state) {
+
+	case ZERO_STATE:
+		canTalonBarrel->SetEncPosition(0);
+		break;
+
+	case DOWN_STATE:
+		canTalonBarrel->Set(-SPIN_SPEED);
+		IsAtPosition(DOWN_ANGLE);
+		break;
+
+	case UP_STATE:
+		canTalonBarrel->Set(SPIN_SPEED);
+		IsAtPosition(UP_ANGLE);
+		break;
+
+	case STOP_STATE:
+		canTalonBarrel->Set(0);
+		break;
+
+	}
 
 }
 

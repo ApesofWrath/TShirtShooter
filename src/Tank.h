@@ -18,11 +18,14 @@ public:
 	Tank();
 	void Open();
 	void Close();
+	double GetPressureValue();
 	void TankStateMachine();
 
 	const int CLOSE_STATE_H = 0;
 	const int OPEN_STATE_H = 1;
 	int tank_state = CLOSE_STATE_H;
+
+	const int MAX_TANK_PRESSURE = 55;
 
 
 };

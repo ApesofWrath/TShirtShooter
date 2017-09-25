@@ -20,7 +20,7 @@ public:
 	Firing * firing_;
 
 	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP);
-	void StateMachine(bool shoot, bool up);
+	void StateMachine(bool shoot, bool input_valve, bool close_tank, bool up, bool down);
 	void Initialize();
 
 };

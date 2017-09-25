@@ -32,6 +32,10 @@ void Tank::Close() {
 
 }
 
+double Tank::GetPressureValue() {
+//	return pressureSensor->GetValue();
+}
+
 void Tank::TankStateMachine() {
 
 	switch(tank_state) {

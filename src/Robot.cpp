@@ -18,6 +18,9 @@ class Robot: public frc::IterativeRobot {
 
 	const int SHOOT_BUTTON = 1;
 	const int UP_BUTTON = 6;
+	const int DOWN_BUTTON = 7;
+	const int INPUT_VALVE_BUTTON = 8;
+	const int CLOSE_TANK_BUTTON = 9;
 
 	const int JOY_THROTTLE = 0;
 	const int JOY_OP = 1;
@@ -59,9 +62,13 @@ class Robot: public frc::IterativeRobot {
 	void TeleopPeriodic() {
 
 		bool shoot_button = joyOp->GetRawButton(SHOOT_BUTTON);
+		bool input_valve_button = joyOp->GetRawButton(INPUT_VALVE_BUTTON);
 		bool up_button = joyOp->GetRawButton(UP_BUTTON);
+		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
+		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
 
-		teleop_state_machine->StateMachine(shoot_button, up_button);
+
+		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button);
 		tank_->TankStateMachine();
     	barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
