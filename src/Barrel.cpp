@@ -131,7 +131,7 @@ void Barrel::BarrelStateMachine() {
 	switch(barrel_pos_state) {
 
 	case ZERO_STATE:
-		canTalonBarrel->SetEncPosition(0);
+		canTalonBarrel->SetEncPosition(0.0);
 		break;
 
 	case DOWN_STATE:
@@ -145,7 +145,7 @@ void Barrel::BarrelStateMachine() {
 		break;
 
 	case STOP_STATE:
-		canTalonBarrel->Set(0);
+		canTalonBarrel->Set(0.0);
 		break;
 
 	}

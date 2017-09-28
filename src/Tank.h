@@ -13,7 +13,7 @@
 class Tank {
 public:
 
-	Solenoid *inputValve, *emergencyRelease;
+	Solenoid *inputValve;
 	AnalogInput *pressureSensor;
 	Tank();
 	void Open();
@@ -25,7 +25,7 @@ public:
 	const int OPEN_STATE_H = 1;
 	int tank_state = CLOSE_STATE_H;
 
-	const int MAX_TANK_PRESSURE = 55;
+	const int MAX_TANK_PRESSURE = 55; //check this
 
 
 };

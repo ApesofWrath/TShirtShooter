@@ -14,8 +14,7 @@ int tank_state = CLOSE_STATE;
 
 Tank::Tank() {
 
-	inputValve = new Solenoid(4, 0);
-	emergencyRelease = new Solenoid(4, 0);
+	inputValve = new Solenoid(4, 3);
 	pressureSensor = new AnalogInput(0);
 
 }

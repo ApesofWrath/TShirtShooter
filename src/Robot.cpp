@@ -17,10 +17,12 @@
 class Robot: public frc::IterativeRobot {
 
 	const int SHOOT_BUTTON = 1;
-	const int UP_BUTTON = 6;
-	const int DOWN_BUTTON = 7;
-	const int INPUT_VALVE_BUTTON = 8;
-	const int CLOSE_TANK_BUTTON = 9;
+	const int UP_BUTTON = 12;
+	const int DOWN_BUTTON = 11;
+	const int INPUT_VALVE_BUTTON = 9;
+	const int CLOSE_TANK_BUTTON = 10;
+	const int EMERGENCY_BUTTON = 8;
+	const int RETURN_BUTTON = 3;
 
 	const int JOY_THROTTLE = 0;
 	const int JOY_OP = 1;
@@ -49,8 +51,8 @@ class Robot: public frc::IterativeRobot {
 		drive_controller = new DriveController();
 		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_);
 
-		solenoid_1 = new Solenoid(4, 0);
-		solenoid_2 = new Solenoid(4, 1);
+//		solenoid_1 = new Solenoid(4, 0);
+//		solenoid_2 = new Solenoid(4, 1);
 
 	}
 
@@ -66,9 +68,10 @@ class Robot: public frc::IterativeRobot {
 		bool up_button = joyOp->GetRawButton(UP_BUTTON);
 		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
 		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
+		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
+		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
 
-
-		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button);
+		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button, emergency_button, return_button);
 		tank_->TankStateMachine();
     	barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
@@ -78,28 +81,49 @@ class Robot: public frc::IterativeRobot {
 
 	void TestPeriodic() {
 
-		if(first) {
-			barrel_->canTalonBarrel->SetEncPosition(0);
-			first++;
-		}
-		std::cout << "BARREL: " << barrel_->GetBarrelPos() << std::endl; //did not print
+//		if(first) {
+//			barrel_->canTalonBarrel->SetEncPosition(0);
+//			first++;
+//		}
+//	//	std::cout << "BARREL: " << barrel_->GetBarrelPos() << std::endl; //did not print
+//
+//		if(joyOp->GetRawButton(3)) {
+//			barrel_->canTalonBarrel->Set(0.6);
+//		}
+//		else if (joyOp->GetRawButton(4)) {
+//			barrel_->canTalonBarrel->Set(-0.6);
+//		}
+//		else {
+//			barrel_->canTalonBarrel->Set(0.0);
+//		}
 
-		if(joyOp->GetRawButton(3)) {
-			barrel_->canTalonBarrel->Set(0.6);
-		}
-		else if (joyOp->GetRawButton(4)) {
-			barrel_->canTalonBarrel->Set(-0.6);
-		}
-		else {
-			barrel_->canTalonBarrel->Set(0.0);
-		}
+
+	//	tank_->inputValve->Set(true);
 
 		if(joyOp->GetRawButton(8)) {
-			firing_->outputValve->Set(false);
-		}
-		else {
 			firing_->outputValve->Set(true);
 		}
+		else {
+			firing_->outputValve->Set(false);
+		}
+
+		if(joyOp->GetRawButton(12)) {
+					firing_->emergencyRelease->Set(true);
+				}
+				else {
+					firing_->emergencyRelease->Set(false);
+				}
+//
+		if(joyOp->GetRawButton(1)) {
+			std::cout << "HERE" << std::endl;
+			tank_->inputValve->Set(true);
+		}
+		else {
+			tank_->inputValve->Set(false);
+		}
+		//tank_->emergencyRelease->Set(false);
+
+
 
 		//if(joyOp->GetRawButton(3)) {
 		//			tank_->inputValve(false);

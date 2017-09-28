@@ -15,12 +15,16 @@ public:
 	void FiringStateMachine();
 	void Close();
 	void Fire();
+	void OpenEmergency();
+	void CloseEmergency();
 
-	Solenoid *outputValve;
+	Solenoid *outputValve, *emergencyRelease;
 
-	const int CLOSE_STATE_H = 0;
-	const int FIRE_STATE_H = 1;
-	int barrel_fire_state = CLOSE_STATE_H;
+	const int CLOSE_ALL_STATE_H = 0;
+	const int OPEN_FIRE_STATE_H = 1;
+	const int OPEN_EMERGENCY_STATE_H = 2;
+	const int OPEN_ALL_STATE_H = 3;
+	int fire_state = CLOSE_ALL_STATE_H;
 
 };
 
