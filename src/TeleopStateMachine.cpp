@@ -33,14 +33,18 @@ void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button
 	switch(state){
 
 	if(up_button) { //12
-		barrel_->barrel_pos_state = barrel_->UP_STATE_H;
+		barrel_->barrel_state = barrel_->UP_STATE_H;
 	}
 	else if(down_button) { //11
-		barrel_->barrel_pos_state = barrel_->DOWN_STATE_H;
+		barrel_->barrel_state = barrel_->DOWN_STATE_H;
 	}
 
 	if(emergency_button) { //8
 		state = EMERGENCY_STATE;
+	}
+
+	if(return_button) {
+		state = WAIT_FOR_BUTTON_STATE;
 	}
 
 	case INIT_STATE:
@@ -74,9 +78,9 @@ void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button
 
 	case OUTPUT_VALVE_STATE:
 		firing_->fire_state = firing_->OPEN_FIRE_STATE_H;
-		firingTimer->Start();
-		if(firingTimer->HasPeriodPassed(FIRING_TIME)) {
-			firingTimer->Reset();
+		///firingTimer->Start();
+		if(return_button) {
+			//firingTimer->Reset();
 			state = WAIT_FOR_BUTTON_STATE;
 		}
 		break;

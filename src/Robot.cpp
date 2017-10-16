@@ -8,7 +8,6 @@
 #include <Tank.h>
 #include <Firing.h>
 #include <Joystick.h>
-
 #include <DriveController.h>
 #include <TeleopStateMachine.h>
 
@@ -17,8 +16,8 @@
 class Robot: public frc::IterativeRobot {
 
 	const int SHOOT_BUTTON = 1;
-	const int UP_BUTTON = 12;
-	const int DOWN_BUTTON = 11;
+	const int UP_BUTTON = 3;
+	const int DOWN_BUTTON = 4;
 	const int INPUT_VALVE_BUTTON = 9;
 	const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 8;
@@ -31,13 +30,13 @@ class Robot: public frc::IterativeRobot {
 	Firing *firing_;
 	Joystick *joyOp, *joyThrottle, *joyWheel;
 	Tank *tank_;
-    Barrel *barrel_;
+	Barrel *barrel_;
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
 
-	Solenoid *solenoid_1, *solenoid_2;
+//	Solenoid *solenoid_1, *solenoid_2;
 
-	int first = 0;
+//int first = 0;
 
 	void RobotInit() {
 
@@ -67,15 +66,42 @@ class Robot: public frc::IterativeRobot {
 		bool input_valve_button = joyOp->GetRawButton(INPUT_VALVE_BUTTON);
 		bool up_button = joyOp->GetRawButton(UP_BUTTON);
 		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
-		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
+//		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
 		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
-		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
-
-		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button, emergency_button, return_button);
+//		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
+//
+//		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button, emergency_button, return_button);
 		tank_->TankStateMachine();
     	barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
+
 		drive_controller->Drive(joyThrottle, joyWheel);
+
+		if (up_button) { //3
+			barrel_->barrel_state = barrel_->UP_STATE_H;
+		} else if (down_button) { //4
+			barrel_->barrel_state = barrel_->DOWN_STATE_H;
+		} else {
+			barrel_->barrel_state = barrel_->STOP_STATE_H;
+		}
+
+		if (shoot_button) { //1
+			firing_->fire_state = firing_->OPEN_FIRE_STATE_H;
+		} else {
+			firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
+		}
+
+		if (emergency_button) {//8
+			firing_->fire_state = firing_->OPEN_EMERGENCY_STATE_H;
+		} else {
+			firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
+		}
+
+		if (input_valve_button) { //9
+			tank_->tank_state = tank_->OPEN_STATE_H;
+		} else {
+			tank_->tank_state = tank_->CLOSE_STATE_H;
+		}
 
 	}
 
@@ -87,43 +113,37 @@ class Robot: public frc::IterativeRobot {
 //		}
 //	//	std::cout << "BARREL: " << barrel_->GetBarrelPos() << std::endl; //did not print
 //
-//		if(joyOp->GetRawButton(3)) {
-//			barrel_->canTalonBarrel->Set(0.6);
-//		}
-//		else if (joyOp->GetRawButton(4)) {
-//			barrel_->canTalonBarrel->Set(-0.6);
-//		}
-//		else {
-//			barrel_->canTalonBarrel->Set(0.0);
-//		}
+		drive_controller->Drive(joyThrottle, joyWheel);
 
-
-	//	tank_->inputValve->Set(true);
-
-		if(joyOp->GetRawButton(8)) {
-			firing_->outputValve->Set(true);
+		if (joyOp->GetRawButton(3)) { //up
+			barrel_->canTalonBarrel->Set(0.6);
+		} else if (joyOp->GetRawButton(4)) { //down
+			barrel_->canTalonBarrel->Set(-0.6);
+		} else {
+			barrel_->canTalonBarrel->Set(0.0);
 		}
-		else {
+
+		//	tank_->inputValve->Set(true);
+
+		if (joyOp->GetRawButton(8)) {
+			firing_->outputValve->Set(true);
+		} else {
 			firing_->outputValve->Set(false);
 		}
 
-		if(joyOp->GetRawButton(12)) {
-					firing_->emergencyRelease->Set(true);
-				}
-				else {
-					firing_->emergencyRelease->Set(false);
-				}
-//
-		if(joyOp->GetRawButton(1)) {
-			std::cout << "HERE" << std::endl;
-			tank_->inputValve->Set(true);
+		if (joyOp->GetRawButton(12)) {
+			firing_->emergencyRelease->Set(true);
+		} else {
+			firing_->emergencyRelease->Set(false);
 		}
-		else {
+//
+		if (joyOp->GetRawButton(1)) {
+			//	std::cout << "HERE" << std::endl;
+			tank_->inputValve->Set(true);
+		} else {
 			tank_->inputValve->Set(false);
 		}
 		//tank_->emergencyRelease->Set(false);
-
-
 
 		//if(joyOp->GetRawButton(3)) {
 		//			tank_->inputValve(false);
@@ -132,13 +152,12 @@ class Robot: public frc::IterativeRobot {
 		//			tank_->inputValve(true);
 		//		}
 
-			//if(joyOp->GetRawButton(3)) {
-			//			firing_->outputValve(false);
-			//		}
-			//		else if (joyOp->GetRawButton(4)) {
-			//			firing_->outputValve(true);
-			//		}
-
+		//if(joyOp->GetRawButton(3)) {
+		//			firing_->outputValve(false);
+		//		}
+		//		else if (joyOp->GetRawButton(4)) {
+		//			firing_->outputValve(true);
+		//		}
 
 	}
 
@@ -147,7 +166,6 @@ class Robot: public frc::IterativeRobot {
 		teleop_state_machine->Initialize();
 
 	}
-
 
 };
 

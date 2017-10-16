@@ -14,7 +14,7 @@ int tank_state = CLOSE_STATE;
 
 Tank::Tank() {
 
-	inputValve = new Solenoid(4, 3);
+	inputValve = new Solenoid(4, 2);
 	pressureSensor = new AnalogInput(0);
 
 }
@@ -32,7 +32,9 @@ void Tank::Close() {
 }
 
 double Tank::GetPressureValue() {
-//	return pressureSensor->GetValue();
+
+	return pressureSensor->GetValue();
+
 }
 
 void Tank::TankStateMachine() {

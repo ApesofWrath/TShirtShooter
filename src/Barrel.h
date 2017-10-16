@@ -30,7 +30,7 @@ public:
 	const int DOWN_STATE_H = 1;
 	const int UP_STATE_H = 2;
 	const int STOP_STATE_H = 3;
-	int barrel_pos_state = ZERO_STATE_H; //init state
+	int barrel_state = ZERO_STATE_H; //init state
 
 };
 

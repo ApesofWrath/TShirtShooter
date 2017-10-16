@@ -21,7 +21,7 @@ const int ZERO_STATE = 0;
 const int DOWN_STATE = 1;
 const int UP_STATE = 2;
 const int STOP_STATE = 3;
-int barrel_pos_state = ZERO_STATE; //init state
+int barrel_state = ZERO_STATE; //init state
 
 const int CAN_TALON_BARREL = 28;
 
@@ -128,7 +128,7 @@ double Barrel::GetBarrelPos() {
 
 void Barrel::BarrelStateMachine() {
 
-	switch(barrel_pos_state) {
+	switch(barrel_state) {
 
 	case ZERO_STATE:
 		canTalonBarrel->SetEncPosition(0.0);
@@ -237,7 +237,7 @@ void Barrel::StartThread() {
 
 //	Barrel *barrel = this;
 //
-//    BarrelThread = std::thread(&Barrel::MoveWrapper, barrel, &ref_pos_);
+//  BarrelThread = std::thread(&Barrel::MoveWrapper, barrel, &ref_pos_);
 //	BarrelThread.detach();
 
 }
