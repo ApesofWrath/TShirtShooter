@@ -15,8 +15,8 @@ int fire_state = CLOSE_ALL_STATE;
 
 Firing::Firing() {
 
-	outputValve = new Solenoid(31, 4);
-	emergencyRelease = new Solenoid(31, 5);
+	outputValve = new Solenoid(40, 7);
+	emergencyRelease = new Solenoid(40, 4);
 
 }
 

@@ -19,7 +19,7 @@ class Robot: public frc::IterativeRobot {
 	const int UP_BUTTON = 3;
 	const int DOWN_BUTTON = 4;
 	const int INPUT_VALVE_BUTTON = 9;
-	const int CLOSE_TANK_BUTTON = 10;
+	//const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 8;
 	const int RETURN_BUTTON = 3;
 
@@ -34,10 +34,6 @@ class Robot: public frc::IterativeRobot {
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
 
-//	Solenoid *solenoid_1, *solenoid_2;
-
-//int first = 0;
-
 	void RobotInit() {
 
 		joyThrottle = new Joystick(JOY_THROTTLE);
@@ -49,9 +45,6 @@ class Robot: public frc::IterativeRobot {
 		firing_ = new Firing();
 		drive_controller = new DriveController();
 		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_);
-
-//		solenoid_1 = new Solenoid(4, 0);
-//		solenoid_2 = new Solenoid(4, 1);
 
 	}
 
@@ -107,12 +100,6 @@ class Robot: public frc::IterativeRobot {
 
 	void TestPeriodic() {
 
-//		if(first) {
-//			barrel_->canTalonBarrel->SetEncPosition(0);
-//			first++;
-//		}
-//	//	std::cout << "BARREL: " << barrel_->GetBarrelPos() << std::endl; //did not print
-//
 		drive_controller->Drive(joyThrottle, joyWheel);
 
 		if (joyOp->GetRawButton(3)) { //up

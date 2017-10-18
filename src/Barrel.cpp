@@ -135,12 +135,12 @@ void Barrel::BarrelStateMachine() {
 		break;
 
 	case DOWN_STATE:
-		canTalonBarrel->Set(-SPIN_SPEED);
+		canTalonBarrel->Set(SPIN_SPEED);
 		IsAtPosition(DOWN_ANGLE);
 		break;
 
 	case UP_STATE:
-		canTalonBarrel->Set(SPIN_SPEED);
+		canTalonBarrel->Set(-SPIN_SPEED);
 		IsAtPosition(UP_ANGLE);
 		break;
 
