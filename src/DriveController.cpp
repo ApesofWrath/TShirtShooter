@@ -8,14 +8,14 @@
 
 #define PI 3.14159265
 
-const int CAN_TALON_FRONT_LEFT = 24; //
+const int CAN_TALON_FRONT_LEFT = 24;
 const int CAN_TALON_BACK_LEFT = 21;
 const int CAN_TALON_FRONT_RIGHT = 27;
 const int CAN_TALON_BACK_RIGHT = 26;
 
-const double MAX_Y_RPM_ACTUAL = 950.0;
+const double MAX_Y_RPM_ACTUAL = 1325.0; //950
 const double MAX_Y_RPM = 600.0;
-const double MAX_ROT_VEL_ACTUAL = 30.0;
+const double MAX_ROT_VEL_ACTUAL = 50.0; //35
 const double MAX_YAW_RATE = (MAX_ROT_VEL_ACTUAL / MAX_Y_RPM_ACTUAL) * MAX_Y_RPM; //scale down from actual rot vel
 
 const double UNITS_PER_ROT = 4096.0;

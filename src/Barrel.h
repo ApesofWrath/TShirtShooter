@@ -6,7 +6,9 @@
  */
 #include <WPILib.h>
 #include <CANTalon.h>
-//#include <TrapezoidalProfile.h>
+#include <thread>
+#include <chrono>
+#include <Timer.h>
 #ifndef BARREL_H_
 #define BARREL_H_
 
@@ -23,8 +25,7 @@ public:
 
 	void StartThread();
 	void DisableThread();
-	void MoveWrapper(Barrel *barrel, int *ref_pos);
-	void SetIndex(int index);
+	static void BarrelWrapper(Barrel *barrel, double *ref, bool *active);
 
 	const int ZERO_STATE_H = 0;
 	const int DOWN_STATE_H = 1;

@@ -51,6 +51,8 @@ class Robot: public frc::IterativeRobot {
 	void TeleopInit() { //does not run again on re-enable
 
 		teleop_state_machine->Initialize();
+
+		//barrel_->StartThread();
 	}
 
 	void TeleopPeriodic() {
@@ -151,6 +153,8 @@ class Robot: public frc::IterativeRobot {
 	void DisabledInit() {
 
 		teleop_state_machine->Initialize();
+
+		//barrel_->DisableThread();
 
 	}
 
