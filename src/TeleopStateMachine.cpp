@@ -21,11 +21,12 @@ int state = INIT_STATE;
 
 Timer *firingTimer = new Timer();
 
-TeleopStateMachine::TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP) {
+TeleopStateMachine::TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP, ReleaseValve *releaseP) {
 
 	barrel_ = barrelP;
 	tank_ = tankP;
 	firing_ = firingP;
+	release_ = releaseP;
 
 }
 void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button, bool close_tank_button, bool up_button, bool down_button, bool emergency_button, bool return_button) {
@@ -54,7 +55,7 @@ void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button
 
 	case WAIT_FOR_BUTTON_STATE:
 		tank_->tank_state = tank_->CLOSE_STATE_H;
-		firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
+		//firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
 		if(input_valve_button) { //9
 		state = INPUT_VALVE_STATE;
 		}
@@ -77,7 +78,7 @@ void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button
 		break;
 
 	case OUTPUT_VALVE_STATE:
-		firing_->fire_state = firing_->OPEN_FIRE_STATE_H;
+		firing_->fire_state = firing_->OPEN_STATE_H;
 		///firingTimer->Start();
 		if(return_button) {
 			//firingTimer->Reset();
@@ -86,7 +87,7 @@ void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button
 		break;
 
 	case EMERGENCY_STATE: //cannot control the firingValve in this state
-		firing_->fire_state = firing_->OPEN_EMERGENCY_STATE_H;
+		release_->release_state = release_->OPEN_STATE_H;
 		if(!emergency_button) { //!8
 			state = WAIT_FOR_BUTTON_STATE;
 		}

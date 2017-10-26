@@ -11,7 +11,8 @@
 const double DOWN_ANGLE = 0.0;
 const double UP_ANGLE = PI / 2.2;
 
-const double SPIN_SPEED = 0.6;
+const double DOWN_SPEED = 0.15;
+const double UP_SPEED = 0.25;
 
 const double MAX_VELOCITY = 0.0; //set these values
 const double MAX_ACCELERATION = 0.0;
@@ -52,9 +53,6 @@ double error = 0.0;
 double last_error = 0.0;
 
 std::thread BarrelThread;
-
-const int DOWN_TO_UP_ANGLE = 0;
-const int UP_TO_DOWN_ANGLE = 1;
 
 double ref_;
 bool active_;
@@ -106,7 +104,7 @@ void Barrel::MoveTo(double ref) { //ref must be in radians from the starting pos
 		output = MIN_OUTPUT;
 	}
 
-	canTalonBarrel->Set(output);
+	canTalonBarrel->Set(-output);
 
 	last_error = error;
 
@@ -137,17 +135,17 @@ void Barrel::BarrelStateMachine() {
 		break;
 
 	case DOWN_STATE:
-		canTalonBarrel->Set(SPIN_SPEED);
+		canTalonBarrel->Set(DOWN_SPEED);
 		//ref_ = DOWN_ANGLE;
 		//active_ = true;
-		IsAtPosition(DOWN_ANGLE);
+		//IsAtPosition(DOWN_ANGLE);
 		break;
 
 	case UP_STATE:
-		canTalonBarrel->Set(-SPIN_SPEED);
+		canTalonBarrel->Set(-UP_SPEED);
 		//ref_ = UP_ANGLE;
 		//active_ = true;
-		IsAtPosition(UP_ANGLE);
+		//IsAtPosition(UP_ANGLE);
 		break;
 
 	case STOP_STATE:
@@ -168,7 +166,9 @@ void Barrel::BarrelWrapper(Barrel *barrel, double *ref, bool *active) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(BARREL_SLEEP_TIME));
 
 			while (*active) {
+
 				if (barrelTimer->HasPeriodPassed(BARREL_WAIT_TIME)) {
+
 					barrel->MoveTo(*ref);
 					barrelTimer->Reset();
 				}

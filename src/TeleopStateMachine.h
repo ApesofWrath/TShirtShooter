@@ -9,6 +9,7 @@
 #include <Barrel.h>
 #include <Firing.h>
 #include <Timer.h>
+#include <ReleaseValve.h>
 #ifndef TELEOPSTATEMACHINE_H_
 #define TELEOPSTATEMACHINE_H_
 
@@ -18,8 +19,9 @@ public:
 	Barrel * barrel_;
 	Tank * tank_;
 	Firing * firing_;
+	ReleaseValve * release_;
 
-	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP);
+	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP, ReleaseValve *releaseP);
 	void StateMachine(bool shoot, bool input_valve, bool close_tank, bool up, bool down, bool emergency, bool returning);
 	void Initialize();
 

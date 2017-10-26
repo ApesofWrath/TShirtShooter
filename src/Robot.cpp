@@ -5,6 +5,7 @@
 #include <WPILib.h>
 #include <CANTalon.h>
 #include <Barrel.h>
+#include <ReleaseValve.h>
 #include <Tank.h>
 #include <Firing.h>
 #include <Joystick.h>
@@ -18,10 +19,11 @@ class Robot: public frc::IterativeRobot {
 	const int SHOOT_BUTTON = 1;
 	const int UP_BUTTON = 3;
 	const int DOWN_BUTTON = 4;
-	const int INPUT_VALVE_BUTTON = 9;
+	const int INPUT_VALVE_BUTTON = 11;
 	//const int CLOSE_TANK_BUTTON = 10;
-	const int EMERGENCY_BUTTON = 8;
-	const int RETURN_BUTTON = 3;
+	const int EMERGENCY_BUTTON = 10;
+	//const int RETURN_BUTTON = 3;
+	const int SLOW_BUTTON = 2;
 
 	const int JOY_THROTTLE = 0;
 	const int JOY_OP = 1;
@@ -31,6 +33,7 @@ class Robot: public frc::IterativeRobot {
 	Joystick *joyOp, *joyThrottle, *joyWheel;
 	Tank *tank_;
 	Barrel *barrel_;
+	ReleaseValve *release_;
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
 
@@ -43,8 +46,9 @@ class Robot: public frc::IterativeRobot {
 		tank_ = new Tank();
 		barrel_ = new Barrel();
 		firing_ = new Firing();
+		release_ = new ReleaseValve();
 		drive_controller = new DriveController();
-		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_);
+		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_, release_);
 
 	}
 
@@ -63,12 +67,14 @@ class Robot: public frc::IterativeRobot {
 		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
 //		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
 		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
+		bool slow_button = joyOp->GetRawButton(SLOW_BUTTON);
 //		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
 //
 //		teleop_state_machine->StateMachine(shoot_button, input_valve_button, close_tank_button, up_button, down_button, emergency_button, return_button);
 		tank_->TankStateMachine();
-    	barrel_->BarrelStateMachine();
+		barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
+		release_->ReleaseValveStateMachine();
 
 		drive_controller->Drive(joyThrottle, joyWheel);
 
@@ -81,18 +87,19 @@ class Robot: public frc::IterativeRobot {
 		}
 
 		if (shoot_button) { //1
-			firing_->fire_state = firing_->OPEN_FIRE_STATE_H;
+			std::cout << "BUTTO NWORK" << std::endl;
+			firing_->fire_state = firing_->OPEN_STATE_H;
 		} else {
-			firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
+			firing_->fire_state = firing_->CLOSE_STATE_H;
 		}
 
-		if (emergency_button) {//8
-			firing_->fire_state = firing_->OPEN_EMERGENCY_STATE_H;
+		if (emergency_button) { //10
+			release_->release_state = release_->OPEN_STATE_H;
 		} else {
-			firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
+			release_->release_state = release_->CLOSE_STATE_H;
 		}
 
-		if (input_valve_button) { //9
+		if (input_valve_button) { //11
 			tank_->tank_state = tank_->OPEN_STATE_H;
 		} else {
 			tank_->tank_state = tank_->CLOSE_STATE_H;
@@ -102,7 +109,7 @@ class Robot: public frc::IterativeRobot {
 
 	void TestPeriodic() {
 
-		drive_controller->Drive(joyThrottle, joyWheel);
+	/*	drive_controller->Drive(joyThrottle, joyWheel);
 
 		if (joyOp->GetRawButton(3)) { //up
 			barrel_->canTalonBarrel->Set(0.6);
@@ -114,11 +121,11 @@ class Robot: public frc::IterativeRobot {
 
 		//	tank_->inputValve->Set(true);
 
-		if (joyOp->GetRawButton(8)) {
-			firing_->outputValve->Set(true);
-		} else {
-			firing_->outputValve->Set(false);
-		}
+//		if (joyOp->GetRawButton(8)) {
+//			firing_->outputValve->Set(true);
+//		} else {
+//			firing_->outputValve->Set(false);
+//		}
 
 		if (joyOp->GetRawButton(12)) {
 			firing_->emergencyRelease->Set(true);
@@ -146,7 +153,7 @@ class Robot: public frc::IterativeRobot {
 		//		}
 		//		else if (joyOp->GetRawButton(4)) {
 		//			firing_->outputValve(true);
-		//		}
+		//		}*/
 
 	}
 
