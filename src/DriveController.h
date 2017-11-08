@@ -13,12 +13,14 @@
 class DriveController {
 public:
 
+
 	CANTalon *canTalonFrontLeft, *canTalonFrontRight, *canTalonBackLeft,
 				*canTalonBackRight;
 	AHRS *ahrs;
 
 	DriveController();
 	void Drive(Joystick *joyThrottle, Joystick *joyWheel);
+	void DriveTest(Joystick *joyThrottle, Joystick *joyWheel);
 
 };
 

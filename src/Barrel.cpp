@@ -12,7 +12,7 @@ const double DOWN_ANGLE = 0.0;
 const double UP_ANGLE = PI / 2.2;
 
 const double DOWN_SPEED = 0.15;
-const double UP_SPEED = 0.25;
+const double UP_SPEED = 0.325;
 
 const double MAX_VELOCITY = 0.0; //set these values
 const double MAX_ACCELERATION = 0.0;

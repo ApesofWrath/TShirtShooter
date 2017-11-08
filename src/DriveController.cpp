@@ -131,4 +131,12 @@ void DriveController::Drive(Joystick *joyThrottle, Joystick *joyWheel) {
 	yaw_last_error = yaw_error;
 
 }
+void DriveController::DriveTest(Joystick *joyThrottle, Joystick *joyWheel) {
 
+	double target_left = joyThrottle->GetY();//joyWheel->GetX();
+	double target_right = joyThrottle->GetY();//-joyWheel->GetX();
+
+	canTalonFrontLeft->Set(-target_left);
+	canTalonFrontRight->Set(target_right);
+
+}

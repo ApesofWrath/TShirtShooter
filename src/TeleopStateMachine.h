@@ -22,7 +22,7 @@ public:
 	ReleaseValve * release_;
 
 	TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP, ReleaseValve *releaseP);
-	void StateMachine(bool shoot, bool input_valve, bool close_tank, bool up, bool down, bool emergency, bool returning);
+	void StateMachine(bool fire_state);
 	void Initialize();
 
 };

@@ -19,7 +19,7 @@ const int OUTPUT_VALVE_STATE = 4;
 const int EMERGENCY_STATE = 5;
 int state = INIT_STATE;
 
-Timer *firingTimer = new Timer();
+Timer *timer = new Timer();
 
 TeleopStateMachine::TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP, ReleaseValve *releaseP) {
 
@@ -29,68 +29,46 @@ TeleopStateMachine::TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *fir
 	release_ = releaseP;
 
 }
-void TeleopStateMachine::StateMachine(bool shoot_button, bool input_valve_button, bool close_tank_button, bool up_button, bool down_button, bool emergency_button, bool return_button) {
+void TeleopStateMachine::StateMachine(bool fire_button) {
 
 	switch(state){
 
-	if(up_button) { //12
-		barrel_->barrel_state = barrel_->UP_STATE_H;
-	}
-	else if(down_button) { //11
-		barrel_->barrel_state = barrel_->DOWN_STATE_H;
-	}
-
-	if(emergency_button) { //8
-		state = EMERGENCY_STATE;
-	}
-
-	if(return_button) {
-		state = WAIT_FOR_BUTTON_STATE;
-	}
-
 	case INIT_STATE:
-		//barrel_->barrel_pos_state = barrel_->ZERO_STATE_H;
 		state = WAIT_FOR_BUTTON_STATE;
 		break;
 
 	case WAIT_FOR_BUTTON_STATE:
-		tank_->tank_state = tank_->CLOSE_STATE_H;
-		//firing_->fire_state = firing_->CLOSE_ALL_STATE_H;
-		if(input_valve_button) { //9
-		state = INPUT_VALVE_STATE;
+		if (fire_button) {
+			state = INPUT_VALVE_STATE;
 		}
 		break;
 
 	case INPUT_VALVE_STATE:
+		timer->Start();
 		tank_->tank_state = tank_->OPEN_STATE_H;
-		if(close_tank_button) { //tank_->GetPressureValue() >= tank_->MAX_TANK_PRESSURE || close_tank_button) { //10
-		tank_->tank_state = tank_->CLOSE_STATE_H;
-		state = UP_STATE;
+
+		if (timer->HasPeriodPassed(5)){
+			tank_->tank_state = tank_->CLOSE_STATE_H;
+			state = UP_STATE;
 		}
-		std::cout << "TANK: " << tank_->GetPressureValue() << std::endl;
 		break;
 
 	case UP_STATE:
-		if(shoot_button) { //1
-			tank_->tank_state = tank_->CLOSE_STATE_H;
-			state = OUTPUT_VALVE_STATE;
-		}
+		barrel_->barrel_state = barrel_->UP_STATE_H;
+		state = OUTPUT_VALVE_STATE;
 		break;
 
 	case OUTPUT_VALVE_STATE:
+		timer->Start();
 		firing_->fire_state = firing_->OPEN_STATE_H;
-		///firingTimer->Start();
-		if(return_button) {
-			//firingTimer->Reset();
+		if(timer->HasPeriodPassed(1.5)){
+			firing_->fire_state = firing_->CLOSE_STATE_H;
 			state = WAIT_FOR_BUTTON_STATE;
 		}
 		break;
 
-	case EMERGENCY_STATE: //cannot control the firingValve in this state
+	case EMERGENCY_STATE:
 		release_->release_state = release_->OPEN_STATE_H;
-		if(!emergency_button) { //!8
-			state = WAIT_FOR_BUTTON_STATE;
-		}
 		break;
 
 	}
