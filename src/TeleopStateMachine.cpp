@@ -54,8 +54,14 @@ void TeleopStateMachine::StateMachine(bool fire_button) {
 		break;
 
 	case UP_STATE:
+		timer->Start();
 		barrel_->barrel_state = barrel_->UP_STATE_H;
-		state = OUTPUT_VALVE_STATE;
+
+		if (timer->HasPeriodPassed(3)) {
+			state = OUTPUT_VALVE_STATE;
+
+		}
+
 		break;
 
 	case OUTPUT_VALVE_STATE:

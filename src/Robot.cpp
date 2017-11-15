@@ -11,6 +11,7 @@
 #include <Joystick.h>
 #include <DriveController.h>
 #include <TeleopStateMachine.h>
+#include <LEDLightStrip.h>
 
 #define PI 3.14159265
 
@@ -25,6 +26,7 @@ class Robot: public frc::IterativeRobot {
 	const int FIRE_BUTTON = 5;
 	//const int RETURN_BUTTON = 3;
 	const int SLOW_BUTTON = 2;
+	const int LED_BUTTON = 6;
 
 	const int JOY_THROTTLE = 0;
 	const int JOY_OP = 1;
@@ -37,6 +39,7 @@ class Robot: public frc::IterativeRobot {
 	ReleaseValve *release_;
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
+	//LEDLightStrip *light_strip;
 
 	void RobotInit() {
 
@@ -50,6 +53,15 @@ class Robot: public frc::IterativeRobot {
 		release_ = new ReleaseValve();
 		drive_controller = new DriveController();
 		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_, release_);
+		//light_strip = new LEDLightStrip();
+
+	}
+
+	void AutonomousInit() override {
+
+	}
+
+	void AutonomousPeriodic() {
 
 	}
 
@@ -70,16 +82,23 @@ class Robot: public frc::IterativeRobot {
 		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
 		bool fire_button = joyOp->GetRawButton(FIRE_BUTTON);
 		bool slow_button = joyOp->GetRawButton(SLOW_BUTTON);
+		bool led_button = joyOp->GetRawButton(LED_BUTTON);
 //		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
 //
-		teleop_state_machine->StateMachine(fire_button);
+	//	teleop_state_machine->StateMachine(fire_button);
 		tank_->TankStateMachine();
 		barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
 		release_->ReleaseValveStateMachine();
+		//light_strip->LEDLightStripStateMachine();
 
-		//drive_controller->Drive(joyThrottle, joyWheel);
-		drive_controller->DriveTest(joyThrottle, joyWheel);
+		drive_controller->Drive(joyThrottle, joyWheel);
+
+		//light_strip->led_state = light_strip->RED_STATE_H;
+
+		if (led_button) { //6
+			//light_strip->led_state = light_strip->BLINKING_STATE_H;
+		}
 
 		if (up_button) { //3
 			barrel_->barrel_state = barrel_->UP_STATE_H;
@@ -90,7 +109,6 @@ class Robot: public frc::IterativeRobot {
 		}
 
 		if (shoot_button) { //1
-			//std::cout << "BUTTO NWORK" << std::endl;
 			firing_->fire_state = firing_->OPEN_STATE_H;
 		} else {
 			firing_->fire_state = firing_->CLOSE_STATE_H;
@@ -168,6 +186,8 @@ class Robot: public frc::IterativeRobot {
 
 	}
 
+
+private:
 
 };
 
