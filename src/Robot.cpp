@@ -17,16 +17,17 @@
 
 class Robot: public frc::IterativeRobot {
 
-	const int SHOOT_BUTTON = 1;
 	const int UP_BUTTON = 3;
 	const int DOWN_BUTTON = 4;
 	const int INPUT_VALVE_BUTTON = 11;
 	//const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 10;
-	const int FIRE_BUTTON = 5;
+	const int FIRE_BUTTON = 1;
 	//const int RETURN_BUTTON = 3;
 	const int SLOW_BUTTON = 2;
 	const int LED_BUTTON = 6;
+	const int FORWARD_BUTTON = 7;
+	const int STOP_BUTTON = 8;
 
 	const int JOY_THROTTLE = 0;
 	const int JOY_OP = 1;
@@ -39,7 +40,7 @@ class Robot: public frc::IterativeRobot {
 	ReleaseValve *release_;
 	TeleopStateMachine *teleop_state_machine;
 	DriveController *drive_controller;
-	//LEDLightStrip *light_strip;
+	LEDLightStrip *light_strip;
 
 	void RobotInit() {
 
@@ -53,7 +54,7 @@ class Robot: public frc::IterativeRobot {
 		release_ = new ReleaseValve();
 		drive_controller = new DriveController();
 		teleop_state_machine = new TeleopStateMachine(barrel_, tank_, firing_, release_);
-		//light_strip = new LEDLightStrip();
+		light_strip = new LEDLightStrip();
 
 	}
 
@@ -74,58 +75,46 @@ class Robot: public frc::IterativeRobot {
 
 	void TeleopPeriodic() {
 
-		bool shoot_button = joyOp->GetRawButton(SHOOT_BUTTON);
-		bool input_valve_button = joyOp->GetRawButton(INPUT_VALVE_BUTTON);
 		bool up_button = joyOp->GetRawButton(UP_BUTTON);
 		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
-//		bool close_tank_button = joyOp->GetRawButton(CLOSE_TANK_BUTTON);
+		bool input_valve_button = joyOp->GetRawButton(INPUT_VALVE_BUTTON);
 		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
 		bool fire_button = joyOp->GetRawButton(FIRE_BUTTON);
-		bool slow_button = joyOp->GetRawButton(SLOW_BUTTON);
+		bool slow_button= joyOp->GetRawButton(SLOW_BUTTON);
 		bool led_button = joyOp->GetRawButton(LED_BUTTON);
-//		bool return_button = joyOp->GetRawButton(RETURN_BUTTON);
-//
-	//	teleop_state_machine->StateMachine(fire_button);
+		bool forward_button = joyOp->GetRawButton(FORWARD_BUTTON);
+		bool stop_button = joyOp->GetRawButton(STOP_BUTTON);
+
+		drive_controller->Drive(joyThrottle, joyWheel);
 		tank_->TankStateMachine();
 		barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();
 		release_->ReleaseValveStateMachine();
-		//light_strip->LEDLightStripStateMachine();
+		light_strip->LEDLightStripStateMachine();
 
-		drive_controller->Drive(joyThrottle, joyWheel);
-
-		//light_strip->led_state = light_strip->RED_STATE_H;
-
-		if (led_button) { //6
-			//light_strip->led_state = light_strip->BLINKING_STATE_H;
-		}
-
-		if (up_button) { //3
-			barrel_->barrel_state = barrel_->UP_STATE_H;
-		} else if (down_button) { //4
-			barrel_->barrel_state = barrel_->DOWN_STATE_H;
-		} else {
-			barrel_->barrel_state = barrel_->STOP_STATE_H;
-		}
-
-		if (shoot_button) { //1
+		if(fire_button){
 			firing_->fire_state = firing_->OPEN_STATE_H;
-		} else {
-			firing_->fire_state = firing_->CLOSE_STATE_H;
 		}
 
-		if (emergency_button) { //10
-			release_->release_state = release_->OPEN_STATE_H;
-		} else {
-			release_->release_state = release_->CLOSE_STATE_H;
+		if(up_button) {
+			barrel_->barrel_state = barrel_->UP_STATE_H;
 		}
 
-		if (input_valve_button) { //11
+		if(down_button) {
+			barrel_->barrel_state = barrel_->DOWN_STATE_H;
+		}
+
+		if(input_valve_button) {
 			tank_->tank_state = tank_->OPEN_STATE_H;
-		} else {
-			tank_->tank_state = tank_->CLOSE_STATE_H;
 		}
 
+		if(emergency_button) {
+			release_->release_state = release_->OPEN_STATE_H;
+		}
+
+		if(led_button) {
+			light_strip->led_state = light_strip->BLINKING_STATE_H;
+		}
 	}
 
 	void TestPeriodic() {
