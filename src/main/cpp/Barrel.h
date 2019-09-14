@@ -4,11 +4,11 @@
  *  Created on: May 16, 2017
  *      Author: gracekwak
  */
-#include <WPILib.h>
+#include <frc/WPILib.h>
 #include "ctre/Phoenix.h"
 #include <thread>
 #include <chrono>
-#include <Timer.h>
+#include <frc/Timer.h>
 #ifndef BARREL_H_
 #define BARREL_H_
 

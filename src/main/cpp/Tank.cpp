@@ -6,7 +6,7 @@
  */
 
 #include "Tank.h"
-#include <WPILib.h>
+#include <frc/WPILib.h>
 
 const int CLOSE_STATE = 0;
 const int OPEN_STATE = 1;
@@ -14,8 +14,8 @@ int tank_state = CLOSE_STATE;
 
 Tank::Tank() {
 
-	inputValve = new Solenoid(39, 3);
-	pressureSensor = new AnalogInput(0); //not used
+	inputValve = new frc::Solenoid(39, 3);
+	pressureSensor = new frc::AnalogInput(0); //not used
 
 }
 

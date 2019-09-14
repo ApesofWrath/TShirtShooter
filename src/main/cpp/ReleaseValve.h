@@ -4,7 +4,7 @@
  *  Created on: Oct 25, 2017
  *      Author: DriversStation
  */
-#include <WPILib.h>
+#include <frc/WPILib.h>
 #ifndef SRC_RELEASEVALVE_H_
 #define SRC_RELEASEVALVE_H_
 
@@ -17,7 +17,7 @@ public:
 
 	void ReleaseValveStateMachine();
 
-	Solenoid *releaseValve;
+	frc::Solenoid *releaseValve;
 
 	const int CLOSE_STATE_H = 0;
 	const int OPEN_STATE_H = 1;

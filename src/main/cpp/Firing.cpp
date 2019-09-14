@@ -13,7 +13,7 @@ int fire_state = CLOSE_STATE;
 
 Firing::Firing() {
 
-	outputValve = new Solenoid(0, 2);
+	outputValve = new frc::Solenoid(0, 2);
 
 }
 

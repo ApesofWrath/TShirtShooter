@@ -19,7 +19,7 @@ const int OUTPUT_VALVE_STATE = 4;
 const int EMERGENCY_STATE = 5;
 int state = INIT_STATE;
 
-Timer *timer = new Timer();
+frc::Timer *timer = new frc::Timer();
 
 TeleopStateMachine::TeleopStateMachine(Barrel *barrelP, Tank *tankP, Firing *firingP, ReleaseValve *releaseP) {
 

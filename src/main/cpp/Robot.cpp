@@ -1,10 +1,10 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <IterativeRobot.h>
-#include <WPILib.h>
+#include <frc/IterativeRobot.h>
+#include <frc/WPILib.h>
 #include "ctre/Phoenix.h"
-#include <Joystick.h>
+#include <frc/Joystick.h>
 #include "DriveController.h"
 #include "Barrel.h"
 #include "TeleopStateMachine.h"

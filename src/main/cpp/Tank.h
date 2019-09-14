@@ -4,7 +4,7 @@
  *  Created on: May 17, 2017
  *      Author: gracekwak
  */
-#include <WPILib.h>
+#include <frc/WPILib.h>
 
 #ifndef TANK_H_
 #define TANK_H_
@@ -12,8 +12,8 @@
 class Tank {
 public:
 
-	Solenoid *inputValve;
-	AnalogInput *pressureSensor;
+	frc::Solenoid *inputValve;
+	frc::AnalogInput *pressureSensor;
 	Tank();
 	void Open();
 	void Close();

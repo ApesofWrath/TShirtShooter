@@ -4,11 +4,11 @@
  *  Created on: May 17, 2017
  *      Author: gracekwak
  */
-#include <WPILib.h>
+#include <frc/WPILib.h>
 #include "Tank.h"
 #include "Barrel.h"
 #include "Firing.h"
-#include "Timer.h"
+#include <frc/Timer.h>
 #include "ReleaseValve.h"
 #ifndef TELEOPSTATEMACHINE_H_
 #define TELEOPSTATEMACHINE_H_

@@ -59,7 +59,7 @@ std::thread BarrelThread;
 double ref_;
 bool active_;
 
-Timer *barrelTimer = new Timer();
+frc::Timer *barrelTimer = new frc::Timer();
 
 Barrel::Barrel() {
 

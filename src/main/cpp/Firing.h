@@ -4,7 +4,7 @@
  *  Created on: May 22, 2017
  *      Author: gracekwak
  */
-#include <WPILib.h>
+#include <frc/WPILib.h>
 #ifndef SRC_FIRING_H_
 #define SRC_FIRING_H_
 
@@ -16,7 +16,7 @@ public:
 	void Close();
 	void Open();
 
-	Solenoid *outputValve;
+	frc::Solenoid *outputValve;
 
 	const int CLOSE_STATE_H = 0;
 	const int OPEN_STATE_H = 1;
