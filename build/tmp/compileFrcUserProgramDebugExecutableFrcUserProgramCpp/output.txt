@@ -1,0 +1,71 @@
+See file:///C:/Users/Robotics/Desktop/TShirtShooter/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling Firing.h successful.
+
+compiling ReleaseValve.cpp successful.
+
+compiling Firing.cpp successful.
+
+compiling DriveController.h successful.
+
+compiling Barrel.h successful.
+
+compiling DriveController.cpp successful.
+
+compiling Barrel.cpp successful.
+
+compiling Tank.h successful.
+
+compiling Tank.cpp successful.
+
+compiling TeleopStateMachine.cpp successful.
+
+compiling TeleopStateMachine.h successful.
+
+compiling ReleaseValve.h successful.
+
+compiling Robot.cpp successful.
+In file included from C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobotBase.h:10:0,
+                 from C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobot.h:10,
+                 from C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:4:
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp: In function 'int main()':
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:39:23: warning: 'int StartRobotClassImpl()' is deprecated: Call frc::StartRobot<Robot>() in your own main() instead of using the START_ROBOT_CLASS(Robot) macro. [-Wdeprecated-declarations]
+   int main() { return StartRobotClassImpl(); }
+                       ^
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:179:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:38:7: note: declared here
+   int StartRobotClassImpl() { return frc::StartRobot<_ClassName_>(); } \
+       ^
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:179:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:39:43: warning: 'int StartRobotClassImpl()' is deprecated: Call frc::StartRobot<Robot>() in your own main() instead of using the START_ROBOT_CLASS(Robot) macro. [-Wdeprecated-declarations]
+   int main() { return StartRobotClassImpl(); }
+                                           ^
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:179:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:38:7: note: declared here
+   int StartRobotClassImpl() { return frc::StartRobot<_ClassName_>(); } \
+       ^
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:179:1: note: in expansion of macro 'START_ROBOT_CLASS'
+ START_ROBOT_CLASS(Robot)
+ ^~~~~~~~~~~~~~~~~
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp: In instantiation of 'int frc::StartRobot() [with Robot = Robot]':
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:179:1:   required from here
+C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:18:7: warning: 'frc::IterativeRobot::IterativeRobot()' is deprecated: Use TimedRobot instead. It's a drop-in replacement that provides more regular execution periods. [-Wdeprecated-declarations]
+ class Robot: public frc::IterativeRobot {
+       ^~~~~
+In file included from C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:4:0:
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobot.h:28:3: note: declared here
+   IterativeRobot();
+   ^~~~~~~~~~~~~~
+In file included from C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobotBase.h:10:0,
+                 from C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/IterativeRobot.h:10,
+                 from C:\Users\Robotics\Desktop\TShirtShooter\src\main\cpp\Robot.cpp:4:
+C:\Users\Robotics\Desktop\TShirtShooter\build\tmp\expandedArchives\wpilibc-cpp-2019.4.1-headers.zip_b81507b0c50c581f7502538d67c4b01b/frc/RobotBase.h:28:16: note: synthesized method 'Robot::Robot()' first required here 
+   static Robot robot;
+                ^~~~~
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/Robotics/Desktop/TShirtShooter/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
