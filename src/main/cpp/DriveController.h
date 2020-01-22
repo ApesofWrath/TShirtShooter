@@ -4,9 +4,11 @@
  *  Created on: May 15, 2017
  *      Author: gracekwak
  */
+
+#include <AHRS.h>
 #include <frc/WPILib.h>
 #include "ctre/Phoenix.h"
-#include <AHRS.h>
+
 #ifndef DRIVECONTROLLER_H_
 #define DRIVECONTROLLER_H_
 

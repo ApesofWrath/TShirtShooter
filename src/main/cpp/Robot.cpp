@@ -1,10 +1,12 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <frc/IterativeRobot.h>
+
+#include <frc/TimedRobot.h>
 #include <frc/WPILib.h>
 #include "ctre/Phoenix.h"
 #include <frc/Joystick.h>
+
 #include "DriveController.h"
 #include "Barrel.h"
 #include "TeleopStateMachine.h"
@@ -15,7 +17,7 @@
 
 #define PI 3.14159265
 
-class Robot: public frc::IterativeRobot {
+class Robot: public frc::TimedRobot {
 
 	const int UP_BUTTON = 3;
 	const int DOWN_BUTTON = 4;
