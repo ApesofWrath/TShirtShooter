@@ -1,4 +1,0 @@
-See file:///Users/cking/Documents/Codes/TShirtShooter/build/tmp/linkFrcUserProgramDebugExecutable/output.txt for all output for linkFrcUserProgramDebugExecutable.
-linking frcUserProgram successful.
-
-Finished linkFrcUserProgramDebugExecutable, see full log file:///Users/cking/Documents/Codes/TShirtShooter/build/tmp/linkFrcUserProgramDebugExecutable/output.txt.
