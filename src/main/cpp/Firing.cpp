@@ -14,7 +14,9 @@ int fire_state = CLOSE_STATE;
 Firing::Firing() {
 
 	outputValve = new frc::Solenoid(0, 2);
-
+	canTalonCompressor1 = new TalonSRX(CAN_TALON_COMPRESSOR_1);
+	canTalonCompressor2 = new TalonSRX(CAN_TALON_COMPRESSOR_2);
+	canTalonCompressor2->Follow(*canTalonCompressor1);
 }
 
 void Firing::Close() {
@@ -29,6 +31,18 @@ void Firing::Open() {
 
 }
 
+void Firing::StartCompressor() {
+
+	canTalonCompressor1->Set(ControlMode::PercentOutput,1.0f);
+
+}
+
+void Firing::StopCompressor() {
+
+	canTalonCompressor1->Set(ControlMode::PercentOutput,0.0f);
+
+}
+
 void Firing::FiringStateMachine() {
 
 	switch(fire_state) {
@@ -39,6 +53,14 @@ void Firing::FiringStateMachine() {
 
 	case OPEN_STATE:
 		Open();
+		break;
+	
+	case START_COMPRESSOR_STATE:
+		StartCompressor();
+		break;
+
+	case STOP_COMPRESSOR_STATE:
+		StopCompressor();
 		break;
 	}
 

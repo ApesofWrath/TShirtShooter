@@ -5,7 +5,6 @@
  *      Author: gracekwak
  */
 
- //TODO: Update firmware on talons?
 #include "Barrel.h"
 //#include <WPILib.h>
 #define PI 3.14159265

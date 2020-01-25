@@ -6,6 +6,7 @@
 #include <frc/WPILib.h>
 #include "ctre/Phoenix.h"
 #include <frc/Joystick.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "DriveController.h"
 #include "Barrel.h"
@@ -19,13 +20,15 @@
 
 class Robot: public frc::TimedRobot {
 
-	const int UP_BUTTON = 3;
+	const int UP_BUTTON = 5;
 	const int DOWN_BUTTON = 4;
 	const int INPUT_VALVE_BUTTON = 11;
 	//const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 10;
 	const int FIRE_BUTTON = 1;
 	//const int RETURN_BUTTON = 3;
+	const int START_COMPRESSOR_BUTTON = 8;
+	const int STOP_COMPRESSOR_BUTTON = 9;
 	const int SLOW_BUTTON = 2;
 	//const int LED_BUTTON = 6;
 	const int FORWARD_BUTTON = 7; //?
@@ -80,6 +83,8 @@ class Robot: public frc::TimedRobot {
 		bool slow_button= joyOp->GetRawButton(SLOW_BUTTON);
 		bool forward_button = joyOp->GetRawButton(FORWARD_BUTTON);
 		bool stop_button = joyOp->GetRawButton(STOP_BUTTON);
+		bool start_compressor_button = joyThrottle->GetRawButton(START_COMPRESSOR_BUTTON);
+		bool stop_compressor_button = joyThrottle->GetRawButton(STOP_COMPRESSOR_BUTTON);
 
 		drive_controller->Drive(joyThrottle, joyWheel);
 		tank_->TankStateMachine();
@@ -93,6 +98,15 @@ class Robot: public frc::TimedRobot {
 			firing_->fire_state = firing_->CLOSE_STATE_H;
 		}
 
+		if(stop_compressor_button){
+			firing_->fire_state = STOP_COMPRESSOR_STATE;
+		} else if(start_compressor_button){
+			firing_->fire_state = START_COMPRESSOR_STATE;
+		}
+
+
+		frc::SmartDashboard::PutBoolean("up_button = ", up_button);
+		frc::SmartDashboard::PutBoolean("down_button = ", down_button);
 		if(up_button) {
 			barrel_->barrel_state = barrel_->UP_STATE_H;
 		} else if(down_button) {
