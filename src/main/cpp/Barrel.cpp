@@ -159,10 +159,10 @@ void Barrel::BarrelStateMachine() {
 }
 
 void Barrel::BarrelWrapper(Barrel *barrel, double *ref, bool *active) {
-
+	
 	while (true) {
 
-		while (frc::RobotState::IsEnabled()) {
+		while (true) {
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(BARREL_SLEEP_TIME));
 

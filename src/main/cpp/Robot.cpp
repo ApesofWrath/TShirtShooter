@@ -48,9 +48,9 @@ class Robot: public frc::TimedRobot {
 
 	void RobotInit() {
 
-		joyThrottle = new Joystick(JOY_THROTTLE);
-		joyOp = new Joystick(JOY_OP);
-		joyWheel = new Joystick(JOY_WHEEL);
+		joyThrottle = new Joystick(2);
+		joyOp = new Joystick(0);
+		joyWheel = new Joystick(1);
 
 		tank_ = new Tank();
 		barrel_ = new Barrel();
@@ -75,16 +75,16 @@ class Robot: public frc::TimedRobot {
 
 	void TeleopPeriodic() {
 
-		bool up_button = joyThrottle->GetRawButton(UP_BUTTON); //TODO: change for arcade buttons
-		bool down_button = joyThrottle->GetRawButton(DOWN_BUTTON);
-		bool input_valve_button = joyThrottle->GetRawButton(INPUT_VALVE_BUTTON);
-		bool emergency_button = joyThrottle->GetRawButton(EMERGENCY_BUTTON);
-		bool fire_button = joyThrottle->GetRawButton(FIRE_BUTTON);
+		bool up_button = joyOp->GetRawButton(UP_BUTTON); //TODO: change for arcade buttons
+		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
+		bool input_valve_button = joyOp->GetRawButton(INPUT_VALVE_BUTTON);
+		bool emergency_button = joyOp->GetRawButton(EMERGENCY_BUTTON);
+		bool fire_button = joyOp->GetRawButton(FIRE_BUTTON);
 		bool slow_button= joyOp->GetRawButton(SLOW_BUTTON);
 		bool forward_button = joyOp->GetRawButton(FORWARD_BUTTON);
 		bool stop_button = joyOp->GetRawButton(STOP_BUTTON);
-		bool start_compressor_button = joyThrottle->GetRawButton(START_COMPRESSOR_BUTTON);
-		bool stop_compressor_button = joyThrottle->GetRawButton(STOP_COMPRESSOR_BUTTON);
+		bool start_compressor_button = joyOp->GetRawButton(START_COMPRESSOR_BUTTON);
+		bool stop_compressor_button = joyOp->GetRawButton(STOP_COMPRESSOR_BUTTON);
 
 		drive_controller->Drive(joyThrottle, joyWheel);
 		tank_->TankStateMachine();
