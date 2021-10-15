@@ -21,7 +21,7 @@ public:
 	AHRS *ahrs;
 
 	DriveController();
-	void Drive(Joystick *joyThrottle, Joystick *joyWheel);
+	void Drive(Joystick *joyThrottle);
 	void DriveTest(Joystick *joyThrottle, Joystick *joyWheel);
 
 };

@@ -20,15 +20,15 @@
 
 class Robot: public frc::TimedRobot {
 
-	const int UP_BUTTON = 5;
-	const int DOWN_BUTTON = 4;
+	const int UP_BUTTON = 4;
+	const int DOWN_BUTTON = 2;
 	const int INPUT_VALVE_BUTTON = 11;
 	//const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 10;
-	const int FIRE_BUTTON = 1;
+	const int FIRE_BUTTON = 8;
 	//const int RETURN_BUTTON = 3;
-	const int START_COMPRESSOR_BUTTON = 8;
-	const int STOP_COMPRESSOR_BUTTON = 9;
+	const int START_COMPRESSOR_BUTTON = 5;
+	const int STOP_COMPRESSOR_BUTTON = 6;
 	const int SLOW_BUTTON = 2;
 	//const int LED_BUTTON = 6;
 	const int FORWARD_BUTTON = 7; //?
@@ -73,7 +73,7 @@ class Robot: public frc::TimedRobot {
 
 	}
 
-	void TeleopPeriodic() {
+	void TeleopPeriodic() { //20ms
 
 		bool up_button = joyOp->GetRawButton(UP_BUTTON); //TODO: change for arcade buttons
 		bool down_button = joyOp->GetRawButton(DOWN_BUTTON);
@@ -86,7 +86,7 @@ class Robot: public frc::TimedRobot {
 		bool start_compressor_button = joyOp->GetRawButton(START_COMPRESSOR_BUTTON);
 		bool stop_compressor_button = joyOp->GetRawButton(STOP_COMPRESSOR_BUTTON);
 
-		drive_controller->Drive(joyThrottle, joyWheel);
+		drive_controller->Drive(joyOp); 
 		tank_->TankStateMachine();
 		barrel_->BarrelStateMachine();
 		firing_->FiringStateMachine();

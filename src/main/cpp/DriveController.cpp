@@ -78,7 +78,7 @@ DriveController::DriveController() {
 
 }
 
-void DriveController::Drive(Joystick *joyThrottle, Joystick *joyWheel) {
+void DriveController::Drive(Joystick *joyThrottle) {
 
 	target_l = joyThrottle->GetY() * MAX_Y_RPM;
 	target_r = joyThrottle->GetY() * MAX_Y_RPM;
@@ -89,7 +89,7 @@ void DriveController::Drive(Joystick *joyThrottle, Joystick *joyWheel) {
 	error_l = target_l - current_l;
 	error_r = target_r + current_r;
 
-	target_yaw_rate = 1.0 * (joyWheel->GetX()) * MAX_YAW_RATE; //left should be positive
+	target_yaw_rate = 1.0 * (joyThrottle->GetX()) * MAX_YAW_RATE; //left should be positive
 	yaw_rate_current = 1.0 * (double) ahrs->GetRawGyroZ()
 			* (double) ((PI) / 180);
 	yaw_error = target_yaw_rate - yaw_rate_current;
@@ -129,12 +129,12 @@ void DriveController::Drive(Joystick *joyThrottle, Joystick *joyWheel) {
 	yaw_last_error = yaw_error;
 
 }
-void DriveController::DriveTest(Joystick *joyThrottle, Joystick *joyWheel) {
+// void DriveController::DriveTest(Joystick *joyThrottle, Joystick *joyWheel) {
 
-	double target_left = joyThrottle->GetY();//joyWheel->GetX();
-	double target_right = joyThrottle->GetY();//-joyWheel->GetX();
+// 	double target_left = joyThrottle->GetY();//joyWheel->GetX();
+// 	double target_right = joyThrottle->GetY();//-joyWheel->GetX();
 
 //	canTalonFrontLeft->Set(-target_left);
 //	canTalonFrontRight->Set(target_right);
 
-}
+// }
