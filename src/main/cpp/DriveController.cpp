@@ -35,6 +35,9 @@ double P_r = 0.0;
 double I_l = 0.0;
 double I_r = 0.0;
 
+double x = 0;
+double y = 0;
+
 double i_l = 0.0;
 double i_r = 0.0;
 
@@ -80,8 +83,24 @@ DriveController::DriveController() {
 
 void DriveController::Drive(Joystick *joyThrottle) {
 
-	target_l = joyThrottle->GetY() * MAX_Y_RPM;
-	target_r = joyThrottle->GetY() * MAX_Y_RPM;
+	if(joyThrottle->GetRawButton(4)){
+		x = 1.0;
+	} else if(joyThrottle->GetRawButton(2)) {
+		x = -1.0;
+	} else {
+		x = 0.0;
+	}
+
+	if(joyThrottle->GetRawButton(3)){
+		y = 1.0;
+	} else if(joyThrottle->GetRawButton(1)) {
+		y = -1.0;
+	} else {
+		y = 0.0;
+	}
+
+	target_l = -x * MAX_Y_RPM;
+	target_r = -x * MAX_Y_RPM;
 
 	current_l = (canTalonFrontLeft->GetSensorCollection().GetQuadratureVelocity() / UNITS_PER_ROT) * MINUTE_CONVERSION;
 	current_r = (canTalonFrontRight->GetSensorCollection().GetQuadratureVelocity() / UNITS_PER_ROT) * MINUTE_CONVERSION; //right is negative for forward
@@ -89,7 +108,7 @@ void DriveController::Drive(Joystick *joyThrottle) {
 	error_l = target_l - current_l;
 	error_r = target_r + current_r;
 
-	target_yaw_rate = 1.0 * (joyThrottle->GetX()) * MAX_YAW_RATE; //left should be positive
+	target_yaw_rate = 1.0 * (-y) * MAX_YAW_RATE; //left should be positive
 	yaw_rate_current = 1.0 * (double) ahrs->GetRawGyroZ()
 			* (double) ((PI) / 180);
 	yaw_error = target_yaw_rate - yaw_rate_current;

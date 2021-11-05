@@ -20,9 +20,9 @@
 
 class Robot: public frc::TimedRobot {
 
-	const int UP_BUTTON = 4;
-	const int DOWN_BUTTON = 2;
-	const int INPUT_VALVE_BUTTON = 11;
+	const int UP_BUTTON = 11;
+	const int DOWN_BUTTON = 12;
+	const int INPUT_VALVE_BUTTON = 999;
 	//const int CLOSE_TANK_BUTTON = 10;
 	const int EMERGENCY_BUTTON = 10;
 	const int FIRE_BUTTON = 8;
